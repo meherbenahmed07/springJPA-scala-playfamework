@@ -1,49 +1,35 @@
-This is your new Play application
+springJPA-scala-playfamework
 =================================
+working with spring JPA as repository manager 
 
-This file will be packaged with your application when using `activator dist`.
+registration of user 
 
-There are several demonstration files available in this template.
+mvc architecture
 
-Controllers
-===========
+professional crypt-password
 
-- HomeController.scala:
 
-  Shows how to handle simple HTTP requests.
+  def crypt(password: String): String = {
+    var dd:String=password
+    var m: MessageDigest = null
+    try {
+      m = MessageDigest.getInstance("MD5");
+      m.update(dd.getBytes());
+      val bytes = m.digest
+      val sb = new StringBuilder
+      for (i <- bytes) {
+        sb.append(String.format("%02x", Byte.box(i)))
+      }
+     sb.toString()
+      dd=sb.toString()
+      return dd
+    } catch {
+      case e: NoSuchAlgorithmException => {
+        Logger.error(e.toString)
+        return null
+      }
+    }
+  }
+  
+  we can start to learn this mixture to go far 
 
-- AsyncController.scala:
-
-  Shows how to do asynchronous programming when handling a request.
-
-- CountController.scala:
-
-  Shows how to inject a component into a controller and use the component when
-  handling requests.
-
-Components
-==========
-
-- Module.scala:
-
-  Shows how to use Guice to bind all the components needed by your application.
-
-- Counter.scala:
-
-  An example of a component that contains state, in this case a simple counter.
-
-- ApplicationTimer.scala:
-
-  An example of a component that starts when the application starts and stops
-  when the application stops.
-
-Filters
-=======
-
-- Filters.scala:
-
-  Creates the list of HTTP filters used by your application.
-
-- ExampleFilter.scala
-
-  A simple filter that adds a header to every response.
